@@ -1,0 +1,63 @@
+$indent: 20px;
+.filter {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  height: 250px;
+  width: 230px;
+  border-radius: 5px;
+  background-color: #fff;
+  .filter__title {
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: $indent 0 10px $indent;
+  }
+  .filter__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 40px;
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: $indent;
+    cursor: url('../../images/cursor.svg'), pointer;
+    &:hover {
+      background-color: #f1fcff;
+      input::after {
+        opacity: 0.3;
+      }
+    }
+    label {
+      cursor: inherit;
+      display: flex;
+      align-items: center;
+      line-height: 20px;
+      height: inherit;
+      width: 100%;
+      margin-top: auto;
+    }
+    input {
+      flex-shrink: 0;
+      height: $indent;
+      width: $indent;
+      border: 1px #9abbce solid;
+      height: 20px;
+      width: 20px;
+      box-sizing: border-box;
+      border-radius: 2px;
+    }
+    input::after {
+      content: url(../../images/Shape.svg);
+      display: block;
+      font-size: 0;
+      opacity: 0;
+      margin: 5px 3px;
+    }
+    input:checked {
+      border-color: #2196f3;
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+}

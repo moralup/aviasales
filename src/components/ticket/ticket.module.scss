@@ -1,0 +1,46 @@
+// .ticket__flight-route,
+// .ticket__flight-transfer,
+// .ticket__flight-time
+
+.ticket {
+  font-weight: 700;
+  height: 185px;
+  width: 500px;
+  border-radius: 5px;
+  background-color: #fff;
+  box-sizing: border-box;
+  padding: 20px;
+  margin-bottom: 20px;
+  &__header {
+    margin-bottom: 20px;
+  }
+  &__flight,
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    .ticket__price {
+      font-size: 24px;
+      line-height: 36px;
+      color: #2196f3;
+    }
+    &-info {
+      width: 30%;
+      margin-bottom: 10px;
+    }
+
+    &-info span:first-child {
+      display: block;
+      font-size: 12px;
+      line-height: 18px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #a0b0b9;
+    }
+
+    &-info span:last-child,
+    &-info time {
+      font-size: 14px;
+      line-height: 21px;
+    }
+  }
+}
