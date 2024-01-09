@@ -4,7 +4,9 @@ import Tabs from '../tabs';
 import Filter from '../filter';
 import logo from '../../images/logo.svg';
 import ShowMore from '../show-more/show-more';
+import { useState } from 'react';
 export default () => {
+  const [isVisible, setIsVisible] = useState(false);
   return (
     <div className={cl.app}>
       <img src={logo} alt="logo" className={cl['app__logo']} />

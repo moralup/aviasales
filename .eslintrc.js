@@ -35,7 +35,7 @@ module.exports = {
     'max-depth': ['warn', 4],
     'no-empty': 'warn',
     'no-unused-vars': 'warn',
-    'id-length': ['warn', { exceptions: ['i', 'j'], min: 2 }],
+    'id-length': ['warn', { exceptions: ['i', 'j', 'e'], min: 2 }],
     'no-plusplus': ['warn', { allowForLoopAfterthoughts: true }],
     'no-restricted-syntax': 'off',
     'no-constant-condition': 'warn',
