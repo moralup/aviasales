@@ -1,21 +1,26 @@
 import cl from './filter.module.scss';
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
+
 export default () => {
   const [isVisible, setIsVisible] = useState(false);
+
   const openFilter = e => {
     e.stopPropagation();
     if (window.innerWidth > 800) return;
     setIsVisible(true);
   };
+
   const closeFilter = () => {
     if (window.innerWidth > 800) return;
     setIsVisible(false);
   };
+
   return (
-    <div
-      onClick={closeFilter}
-      className={`${cl.modal} ${isVisible && cl['modal_active']}`}
-    >
+    <>
+      <div
+        onClick={closeFilter}
+        className={`${cl.modal} ${isVisible && cl['modal_active']}`}
+      ></div>
       <div
         onClick={openFilter}
         className={`${cl.filter} ${isVisible && cl['filter_active']}`}
@@ -38,6 +43,6 @@ export default () => {
           })}
         </ul>
       </div>
-    </div>
+    </>
   );
 };

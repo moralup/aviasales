@@ -5,7 +5,6 @@
 .ticket {
   font-weight: 700;
   height: 185px;
-  // width: 500px;
   width: 100%;
   border-radius: 5px;
   background-color: #fff;
@@ -45,7 +44,7 @@
     }
   }
 }
-@media (min-width: 500px) {
+@media (min-width: 800px) {
   .ticket {
     width: 500px;
   }
