@@ -1,43 +1,74 @@
 import cl from './filter.module.scss';
 import { useState } from 'react';
+import dispatch from '../../store/dispatch';
+import { useSelector } from 'react-redux';
 
 export default () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { addFilter, removeFilter, addAllFilter, removeAllFilter } = dispatch;
+  const mainFilter = useSelector(state => state.filter.filter);
 
-  const openFilter = e => {
-    e.stopPropagation();
-    if (window.innerWidth > 800) return;
+  const openFilter = () => {
+    if (window.innerWidth > 800 || isVisible) return;
     setIsVisible(true);
   };
-
   const closeFilter = () => {
-    if (window.innerWidth > 800) return;
+    if (window.innerWidth > 800 || !isVisible) return;
     setIsVisible(false);
+  };
+
+  const filterSelection = e => {
+    const filter = e.target.id;
+    const checked = e.target.checked;
+
+    switch (true) {
+      case !filter:
+        break;
+      case checked && (filter === 'all' || mainFilter.length === 3):
+        addAllFilter();
+        break;
+      case !checked && filter === 'all':
+        removeAllFilter();
+        break;
+      case checked:
+        addFilter(filter);
+        break;
+      case !checked:
+        removeFilter(mainFilter.length === 5 ? [filter, 'all'] : [filter]);
+        break;
+    }
   };
 
   return (
     <>
       <div
-        onClick={closeFilter}
-        className={`${cl.modal} ${isVisible && cl['modal_active']}`}
-      ></div>
+        onMouseDown={closeFilter}
+        onTouchStart={closeFilter}
+        className={`${cl.modal} ${isVisible ? cl['modal_active'] : ''}`}
+      />
       <div
         onClick={openFilter}
-        className={`${cl.filter} ${isVisible && cl['filter_active']}`}
+        className={`${cl.filter} ${isVisible ? cl['filter_active'] : ''}`}
       >
         <h3 className={cl.filter__title}>Количество пересадок</h3>
-        <ul>
+        <ul onChange={filterSelection}>
           {[
-            'Все',
-            'Без пересадок',
-            '1 пересадка',
-            '2 пересадки',
-            '3 пересадки',
-          ].map(el => {
+            { name: 'Все', id: 'all' },
+            { name: 'Без пересадок', id: 'noTransfers' },
+            { name: '1 пересадка', id: 'oneTransfer' },
+            { name: '2 пересадки', id: 'twoTransfers' },
+            { name: '3 пересадки', id: 'threeTransfers' },
+          ].map(filter => {
+            const checked = mainFilter.includes(filter.id);
             return (
-              <li key={el} className={cl.filter__item}>
-                <input id={el} type="checkbox" />
-                <label htmlFor={el}>{el}</label>
+              <li key={filter.id} className={cl.filter__item}>
+                <input
+                  id={filter.id}
+                  type="checkbox"
+                  checked={checked}
+                  readOnly
+                />
+                <label htmlFor={filter.id}>{filter.name}</label>
               </li>
             );
           })}

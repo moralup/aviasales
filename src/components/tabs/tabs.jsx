@@ -1,12 +1,31 @@
+import { useSelector } from 'react-redux';
 import cl from './tabs.module.scss';
-
+import dispatch from '../../store/dispatch';
 export default () => {
+  const mainTab = useSelector(state => state.tab.tab);
+  const { toggleTab } = dispatch;
+
+  const tabSelection = e => {
+    const tab = e.target.id;
+    if (!tab || tab === mainTab) return;
+    toggleTab(tab);
+  };
+
   return (
-    <ul className={cl.tabs}>
-      {['самый дешевый', 'самый быстрый', 'оптимальный'].map(el => {
+    <ul onClick={tabSelection} className={cl.tabs}>
+      {[
+        { name: 'самый дешевый', id: 'cheapest' },
+        { name: 'самый быстрый', id: 'fastest' },
+        { name: 'оптимальный', id: 'optimal' },
+      ].map(tab => {
         return (
-          <li key={el} className={cl.tabs__tab}>
-            {el}
+          <li
+            id={tab.id}
+            key={tab.id}
+            className={`${cl.tabs__tab} 
+            ${mainTab === tab.id ? cl.tabs__tab_active : ''}`}
+          >
+            {tab.name}
           </li>
         );
       })}

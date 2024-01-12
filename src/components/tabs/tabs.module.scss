@@ -13,12 +13,10 @@ $br: 5px;
   align-items: center;
   justify-content: center;
   font-weight: 700;
+  font-size: clamp(12px, 2vw, 13px);
   text-transform: uppercase;
   border: 1px #dfe5ec solid;
   cursor: url('../../images/cursor.svg'), pointer;
-  &:hover {
-    background-color: #f1fcff;
-  }
   &:first-of-type {
     border-radius: $br 0 0 $br;
     border-right: 0;
@@ -27,7 +25,8 @@ $br: 5px;
     border-radius: 0 $br $br 0;
     border-left: 0;
   }
-  &:active {
+  &:active,
+  &_active {
     background-color: #2196f3;
     color: #fff;
   }

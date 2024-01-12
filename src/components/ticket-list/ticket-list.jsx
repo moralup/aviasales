@@ -1,5 +1,4 @@
 import Ticket from '../ticket';
-import cl from './ticket-list.module.scss';
 
 export default () => {
   return (
