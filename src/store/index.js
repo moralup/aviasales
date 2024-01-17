@@ -13,12 +13,6 @@ const rootReducer = combineReducers({
   ticketsLength: ticketsLengthReducer,
 });
 
-const loggerMiddleWare = store => next => action => {
-  const result = next(action);
-  // console.log(action);
-  return result;
-};
-
 export const store = configureStore({
   reducer: rootReducer,
   middleware: getDefaultMiddleware => [
@@ -29,6 +23,5 @@ export const store = configureStore({
         extraArgument: thunk,
       },
     }),
-    loggerMiddleWare,
   ],
 });
