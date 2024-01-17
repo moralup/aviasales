@@ -1,5 +1,5 @@
 const defaultState = {
-  tab: 'cheapest',
+  tab: 'optimal',
 };
 
 export const tabReducer = (state = defaultState, action) => {

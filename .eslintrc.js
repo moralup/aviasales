@@ -31,7 +31,7 @@ module.exports = {
     'react/jsx-key': 'warn',
     'react/prop-types': 'warn',
     'prettier/prettier': ['off', { endOfline: 'crlf' }],
-    curly: ['error', 'multi'],
+    curly: 'off',
     'max-depth': ['warn', 4],
     'no-empty': 'warn',
     'no-unused-vars': 'warn',

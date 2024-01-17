@@ -1,20 +1,20 @@
 const defaultState = {
-  filter: [],
+  filters: [],
 };
 
 export const filterReducer = (state = defaultState, action) => {
   switch (action.type) {
     case 'ADD_FILTER':
-      return { ...state, filter: [...state.filter, action.payload] };
+      return { ...state, filters: [...state.filters, action.payload] };
     case 'REMOVE_FILTER':
       return {
         ...state,
-        filter: state.filter.filter(el => !action.payload.includes(el)),
+        filters: state.filters.filter(el => !action.payload.includes(el)),
       };
     case 'ADD_ALL_FILTER':
       return {
         ...state,
-        filter: [
+        filters: [
           'all',
           'noTransfers',
           'oneTransfer',
@@ -25,7 +25,7 @@ export const filterReducer = (state = defaultState, action) => {
     case 'REMOVE_ALL_FILTER':
       return {
         ...state,
-        filter: [],
+        filters: [],
       };
 
     default:

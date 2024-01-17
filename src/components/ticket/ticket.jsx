@@ -1,41 +1,47 @@
 import cl from './ticket.module.scss';
-import logoCompany from '../../images/logo-company.png';
 
-export default () => {
+export default ({
+  price,
+  carrier,
+  segments,
+  transfers,
+  flightTime,
+  flightLength,
+}) => {
   return (
     <div className={cl.ticket}>
       <div className={cl['ticket__header']}>
-        <div className={cl['ticket__price']}>13 400 Р</div>
-        <img className={cl['ticket__logo']} src={logoCompany} />
+        <div className={cl['ticket__price']}>
+          {`${new Intl.NumberFormat().format(price)} P`}
+        </div>
+        <img
+          className={cl['ticket__logo']}
+          // src={`https://mpics.avs.io/al_square/99/36/${carrier}.png`}
+          src={`https://pics.avs.io/99/36/${carrier}.png`}
+        />
       </div>
-      <div className={cl['ticket__flight']}>
-        <div className={cl['ticket__flight-info']}>
-          <span>MOW – HKT</span>
-          <time>10:45 – 08:00</time>
-        </div>
-        <div className={cl['ticket__flight-info']}>
-          <span>В пути</span>
-          <time>21ч 15м</time>
-        </div>
-        <div className={cl['ticket__flight-info']}>
-          <span>2 пересадки</span>
-          <span>HKG, JNB</span>
-        </div>
-      </div>
-      <div className={cl['ticket__flight']}>
-        <div className={cl['ticket__flight-info']}>
-          <span>MOW – HKT </span>
-          <time>11:20 – 00:50</time>
-        </div>
-        <div className={cl['ticket__flight-info']}>
-          <span>В пути</span>
-          <time>13ч 30м</time>
-        </div>
-        <div className={cl['ticket__flight-info']}>
-          <span>1 пересадка</span>
-          <span> HKG</span>
-        </div>
-      </div>
+      {segments.map(({ date, destination, duration, origin, stops }, id) => {
+        return (
+          <div key={id} className={cl['ticket__flight']}>
+            <div className={cl['ticket__flight-info']}>
+              <span>{`${origin} - ${destination}`}</span>
+              <time>{flightTime(date, duration)}</time>
+            </div>
+            <div className={cl['ticket__flight-info']}>
+              <span>В пути</span>
+              <time>{flightLength(duration)}</time>
+            </div>
+            <div className={cl['ticket__flight-info']}>
+              <span>{transfers(stops)}</span>
+              <ul className={cl['ticket__flight-stops']}>
+                {stops.map(transfer => (
+                  <li> {transfer}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 };

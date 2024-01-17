@@ -6,12 +6,13 @@ import { useSelector } from 'react-redux';
 export default () => {
   const [isVisible, setIsVisible] = useState(false);
   const { addFilter, removeFilter, addAllFilter, removeAllFilter } = dispatch;
-  const mainFilter = useSelector(state => state.filter.filter);
+  const filters = useSelector(state => state.filters.filters);
 
   const openFilter = () => {
     if (window.innerWidth > 800 || isVisible) return;
     setIsVisible(true);
   };
+
   const closeFilter = () => {
     if (window.innerWidth > 800 || !isVisible) return;
     setIsVisible(false);
@@ -24,7 +25,7 @@ export default () => {
     switch (true) {
       case !filter:
         break;
-      case checked && (filter === 'all' || mainFilter.length === 3):
+      case checked && (filter === 'all' || filters.length === 3):
         addAllFilter();
         break;
       case !checked && filter === 'all':
@@ -34,7 +35,7 @@ export default () => {
         addFilter(filter);
         break;
       case !checked:
-        removeFilter(mainFilter.length === 5 ? [filter, 'all'] : [filter]);
+        removeFilter(filters.length === 5 ? [filter, 'all'] : [filter]);
         break;
     }
   };
@@ -59,13 +60,12 @@ export default () => {
             { name: '2 пересадки', id: 'twoTransfers' },
             { name: '3 пересадки', id: 'threeTransfers' },
           ].map(filter => {
-            const checked = mainFilter.includes(filter.id);
             return (
               <li key={filter.id} className={cl.filter__item}>
                 <input
                   id={filter.id}
                   type="checkbox"
-                  checked={checked}
+                  checked={filters.includes(filter.id)}
                   readOnly
                 />
                 <label htmlFor={filter.id}>{filter.name}</label>

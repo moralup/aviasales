@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import cl from './tabs.module.scss';
 import dispatch from '../../store/dispatch';
+
 export default () => {
   const mainTab = useSelector(state => state.tab.tab);
   const { toggleTab } = dispatch;
@@ -12,23 +13,25 @@ export default () => {
   };
 
   return (
-    <ul onClick={tabSelection} className={cl.tabs}>
-      {[
-        { name: 'самый дешевый', id: 'cheapest' },
-        { name: 'самый быстрый', id: 'fastest' },
-        { name: 'оптимальный', id: 'optimal' },
-      ].map(tab => {
-        return (
-          <li
-            id={tab.id}
-            key={tab.id}
-            className={`${cl.tabs__tab} 
-            ${mainTab === tab.id ? cl.tabs__tab_active : ''}`}
-          >
-            {tab.name}
-          </li>
-        );
-      })}
-    </ul>
+    <>
+      <ul onClick={tabSelection} className={cl.tabs}>
+        {[
+          { name: 'самый дешевый', id: 'cheapest' },
+          { name: 'самый быстрый', id: 'fastest' },
+          { name: 'оптимальный', id: 'optimal' },
+        ].map(tab => {
+          return (
+            <li
+              id={tab.id}
+              key={tab.id}
+              className={`${cl.tabs__tab} 
+              ${mainTab === tab.id ? cl.tabs__tab_active : ''}`}
+            >
+              {tab.name}
+            </li>
+          );
+        })}
+      </ul>
+    </>
   );
 };

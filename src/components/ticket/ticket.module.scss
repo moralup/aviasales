@@ -23,6 +23,13 @@
       line-height: 36px;
       color: #2196f3;
     }
+    .ticket__logo {
+      width: 99px;
+      height: 36px;
+    }
+    .ticket__flight-stops li {
+      display: inline;
+    }
     &-info {
       width: 30%;
       margin-bottom: 10px;
@@ -42,10 +49,5 @@
       font-size: 14px;
       line-height: 21px;
     }
-  }
-}
-@media (min-width: 800px) {
-  .ticket {
-    width: 500px;
   }
 }
