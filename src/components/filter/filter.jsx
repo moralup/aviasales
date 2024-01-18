@@ -3,7 +3,7 @@ import { useState } from 'react';
 import dispatch from '../../store/dispatch';
 import { useSelector } from 'react-redux';
 
-export default () => {
+export default function Filter() {
   const [isVisible, setIsVisible] = useState(false);
   const { addFilter, removeFilter, addAllFilter, removeAllFilter } = dispatch;
   const filters = useSelector(state => state.filters.filters);
@@ -76,4 +76,4 @@ export default () => {
       </div>
     </>
   );
-};
+}

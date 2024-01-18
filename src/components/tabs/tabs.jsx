@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import cl from './tabs.module.scss';
 import dispatch from '../../store/dispatch';
 
-export default () => {
+export default function Tabs() {
   const mainTab = useSelector(state => state.tab.tab);
   const { toggleTab } = dispatch;
 
@@ -34,4 +34,4 @@ export default () => {
       </ul>
     </>
   );
-};
+}

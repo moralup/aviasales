@@ -23,24 +23,17 @@ export const setSearchId = () => {
   };
 };
 export const addTickets = searchId => {
-  let counter = 0;
   const anonym = async dispatch => {
     try {
       const response = await fetch(
         `https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`,
       );
-      if (!response.ok) {
-        if (counter > 10) return;
-        counter++;
-        return anonym(dispatch);
-      }
+      if (!response.ok) return anonym(dispatch);
       const { tickets, stop } = await response.json();
       dispatch({ type: 'ADD_TICKETS', payload: tickets });
       if (!stop) anonym(dispatch);
       else dispatch({ type: 'END_OF_LOADING' });
     } catch (err) {
-      if (counter > 10) return;
-      counter++;
       anonym(dispatch);
     }
   };

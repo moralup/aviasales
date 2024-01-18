@@ -1,8 +1,10 @@
 import Ticket from '../ticket';
 import { useSelector } from 'react-redux';
 import { add, format } from 'date-fns';
+import dispatch from '../../store/dispatch';
+import cl from './tickets-list.module.scss';
 
-export default () => {
+export default function TicketList() {
   //! <FunctionForTicket>
   const flightLength = duration => {
     const hours = Math.floor(duration / 60);
@@ -37,10 +39,10 @@ export default () => {
   const tab = useSelector(state => state.tab.tab);
   const filters = useSelector(state => state.filters.filters);
   const ticketsLength = useSelector(state => state.ticketsLength.ticketsLength);
+  const { showMoreTickets } = dispatch;
 
   const getTickets = (tkts, flrs, tab, length) => {
     const tickets = [];
-
     const transferFiltersByLength = {
       0: 'noTransfers',
       1: 'oneTransfer',
@@ -53,21 +55,18 @@ export default () => {
         transferFiltersByLength[tkts[i].segments[j].stops.length],
       );
     };
-    let counter = 0;
-    // console.log(tkts, flrs, tab, length);
     for (let i = 0; i < tkts.length; i++) {
-      // console.log(counter++);
       if (tickets.length === length) {
         switch (tab) {
           case 'cheapest':
-            tickets.sort((a, b) => a.price - b.price);
+            tickets.sort((one, two) => one.price - two.price);
             break;
           case 'fastest':
-            tickets.sort((a, b) => {
+            tickets.sort((one, two) => {
               const allDurationOne =
-                a.segments[0].duration + a.segments[1].duration;
+                one.segments[0].duration + one.segments[1].duration;
               const allDurationTwo =
-                b.segments[0].duration + b.segments[1].duration;
+                two.segments[0].duration + two.segments[1].duration;
               return allDurationOne - allDurationTwo;
             });
             break;
@@ -80,24 +79,32 @@ export default () => {
     }
     return tickets;
   };
-
-  return (
-    <ul>
-      {getTickets(allTickets, filters, tab, ticketsLength).map((ticket, id) => {
-        const { price, carrier, segments } = ticket;
-
-        return (
-          <Ticket
-            key={id}
-            price={price}
-            carrier={carrier}
-            segments={segments}
-            transfers={transfers}
-            flightTime={flightTime}
-            flightLength={flightLength}
-          />
-        );
-      })}
-    </ul>
+  const tickets = getTickets(allTickets, filters, tab, ticketsLength);
+  return tickets.length ? (
+    <>
+      <ul>
+        {tickets.map((ticket, id) => {
+          const { price, carrier, segments } = ticket;
+          return (
+            <Ticket
+              key={id}
+              price={price}
+              carrier={carrier}
+              segments={segments}
+              transfers={transfers}
+              flightTime={flightTime}
+              flightLength={flightLength}
+            />
+          );
+        })}
+      </ul>
+      <button onClick={showMoreTickets} className={cl['show-more']}>
+        показать еще 10 билетов
+      </button>
+    </>
+  ) : (
+    <div className={cl['not-found']}>
+      Рейсов, подходящих под заданные фильтры, не найдено
+    </div>
   );
-};
+}

@@ -2,8 +2,8 @@ import { useSelector } from 'react-redux';
 import cl from './loader-snake.module.scss';
 import { useEffect } from 'react';
 import { useRef } from 'react';
-// import { useSelector } from 'react-redux';
-export default () => {
+
+export default function LoaderSnake() {
   const loaderLength = useRef(0);
   const loader = useRef();
   const tickets = useSelector(state => state.tickets.tickets);
@@ -15,5 +15,6 @@ export default () => {
 
     if (isEnd) loader.current.style.display = 'none';
   }, [tickets, isEnd]);
+
   return <span ref={loader} className={cl.loader} />;
-};
+}

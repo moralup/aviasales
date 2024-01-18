@@ -1,16 +1,15 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import cl from './app.module.scss';
 import TicketList from '../ticket-list';
 import Tabs from '../tabs';
 import Filter from '../filter';
 import logo from '../../images/logo.svg';
-import ShowMore from '../show-more/show-more';
 import dispatch from '../../store/dispatch';
 import { LoaderSnake } from '../loaders';
 import { LoaderCircle } from '../loaders';
+import cl from './app.module.scss';
 
-export default () => {
+export default function App() {
   const id = useSelector(state => state.tickets.searchId);
   const { addTickets, setSearchId } = dispatch;
   const tickets = useSelector(state => state.tickets.tickets);
@@ -30,7 +29,6 @@ export default () => {
           {tickets.length ? (
             <>
               <TicketList />
-              <ShowMore text="показать еще 10 билетов!" />
             </>
           ) : (
             <LoaderCircle />
@@ -39,5 +37,5 @@ export default () => {
       </article>
     </div>
   );
-};
+}
 

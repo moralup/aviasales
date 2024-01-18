@@ -1,13 +1,14 @@
 import cl from './ticket.module.scss';
+import PropTypes from 'prop-types';
 
-export default ({
+export default function Ticket({
   price,
   carrier,
   segments,
   transfers,
   flightTime,
   flightLength,
-}) => {
+}) {
   return (
     <div className={cl.ticket}>
       <div className={cl['ticket__header']}>
@@ -16,7 +17,6 @@ export default ({
         </div>
         <img
           className={cl['ticket__logo']}
-          // src={`https://mpics.avs.io/al_square/99/36/${carrier}.png`}
           src={`https://pics.avs.io/99/36/${carrier}.png`}
         />
       </div>
@@ -34,8 +34,8 @@ export default ({
             <div className={cl['ticket__flight-info']}>
               <span>{transfers(stops)}</span>
               <ul className={cl['ticket__flight-stops']}>
-                {stops.map(transfer => (
-                  <li> {transfer}</li>
+                {stops.map((transfer, id) => (
+                  <li key={id}> {transfer}</li>
                 ))}
               </ul>
             </div>
@@ -44,4 +44,13 @@ export default ({
       })}
     </div>
   );
+}
+
+Ticket.propTypes = {
+  price: PropTypes.number,
+  carrier: PropTypes.string,
+  segments: PropTypes.array,
+  transfers: PropTypes.func,
+  flightTime: PropTypes.func,
+  flightLength: PropTypes.func,
 };
